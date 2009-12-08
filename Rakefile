@@ -12,8 +12,6 @@ begin
     gem.authors = ["Rhett Sutphin", "Peter Nyberg"]
     gem.add_development_dependency "rspec", ">= 1.2"
     gem.add_dependency 'activerecord', '>= 2.3'
-
-    gem.files.include("lib/**/*")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
