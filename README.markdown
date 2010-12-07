@@ -1,7 +1,7 @@
 SchemaQualifiedTables
 =====================
 
-`Bcdatabase::ActiveRecord::SchemaQualifiedTables` is a mix-in for [ActiveRecord][].  It makes it easier to use AR in an application which contains models which map to tables in different schemas.
+`Bcdatabase::ActiveRecord::SchemaQualifiedTables` is a mix-in for [ActiveRecord][] 2.3.x and 3.0+.  It makes it easier to use AR in an application which contains models which map to tables in different schemas.
 
 [ActiveRecord]: http://api.rubyonrails.org/files/vendor/rails/activerecord/README.html
 
