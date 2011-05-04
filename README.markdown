@@ -60,7 +60,7 @@ If you're using rails, configure it in environment.rb:
       :lib => 'bcdatabase/active_record/schema_qualified_tables',
       :source => 'http://gemcutter.org'
 
-Otherwise, just require 'bcdatabase/activerecord/schema_qualified_tables' sometime during initialization (before your models are loaded).
+Otherwise, just require 'bcdatabase/active_XSrecord/schema_qualified_tables' sometime during initialization (before your models are loaded).
 
 Problems?
 ---------
