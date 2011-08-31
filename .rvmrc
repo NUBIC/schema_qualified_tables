@@ -1,1 +1,1 @@
-rvm use @schema_qualified_tables --create
+rvm use @sqtables --create
