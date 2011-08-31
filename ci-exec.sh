@@ -7,6 +7,10 @@ if [ -n "${ACTIVERECORD_VERSION}" ]; then
     GEMSET="${GEMSET}-${ACTIVERECORD_VERSION}"
 fi
 
+if [ -n "${CPK}" ]; then
+    GEMSET="${GEMSET}-${CPK}"
+fi
+
 if [ -z "$CI_RUBY" ]; then
     echo "CI_RUBY must be set"
     exit 1
