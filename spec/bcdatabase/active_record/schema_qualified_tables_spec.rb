@@ -3,7 +3,6 @@ require 'active_record'
 ActiveRecord.load_all! if ActiveRecord.respond_to?(:load_all!)  # Lazy loading of active_record was added to rails 2.3.2
                                                                 # so we have to explicitly load it this way for cpk to work.
 require 'composite_primary_keys'
-require 'bcdatabase/active_record/schema_qualified_tables'
 
 describe "SchemaQualifiedTables" do
   before do

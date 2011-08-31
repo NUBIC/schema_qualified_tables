@@ -1,18 +1,15 @@
 require 'bundler/gem_tasks'
 require 'rake'
 
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 require 'ci/reporter/rake/rspec'
 
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = 'spec/**/*_spec.rb'
 end
 
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
+RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
   # rcov can't tell that /Library/Ruby and RVM are system paths
   spec.rcov_opts = ['--exclude', "spec/*,/Library/Ruby/*,#{ENV['HOME']}/.rvm/*"]
 end
