@@ -2,7 +2,7 @@ require File.expand_path("../../spec_helper", File.dirname(__FILE__))
 require 'active_record'
 ActiveRecord.load_all! if ActiveRecord.respond_to?(:load_all!)  # Lazy loading of active_record was added to rails 2.3.2
                                                                 # so we have to explicitly load it this way for cpk to work.
-require 'composite_primary_keys'
+require 'composite_primary_keys' if SqtCpk.test_cpk?
 
 describe "SchemaQualifiedTables" do
   before do
@@ -253,6 +253,10 @@ describe "SchemaQualifiedTables" do
       end
 
       describe "with CPK" do
+        before do
+          pending 'Not testing CPK' unless test_cpk?
+        end
+
         it "doesn't fail when setting the schema" do
           class Newspaper < ActiveRecord::Base
             set_primary_keys "address", "telephone"
