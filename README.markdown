@@ -75,16 +75,13 @@ Install the gem:
 
 If you're using Rails 2.3, configure it in environment.rb:
 
-    config.gem 'schema_qualified_tables', :version => '>= 1.0.0',
-      :lib => 'bcdatabase/active_record/schema_qualified_tables'
+    config.gem 'schema_qualified_tables', :version => '>= 1.0.0'
 
 If you're using Bundler (e.g., with Rails 3), add it to your Gemfile:
 
-    gem 'schema_qualified_tables', '~> 1.0.0',
-      :require => 'bcdatabase/active_record/schema_qualified_tables'
+    gem 'schema_qualified_tables', '~> 1.0.0'
 
-Otherwise, just require
-'bcdatabase/active_record/schema_qualified_tables' sometime during
+Otherwise, just require 'schema_qualified_tables' sometime during
 initialization (before your models are loaded).
 
 Problems?

@@ -3,7 +3,10 @@ schema_qualified_tables history
 
 1.0.1
 -----
-- ActiveRecord 3.1 support.
+- ActiveRecord 3.1 support. (#1)
+- Add top-level require -- you can now require
+  `'schema_qualified_tables'` instead of always having to use
+  `'bcdatabase/active_record/schema_qualified_tables'`. (#2)
 
 1.0.0
 -----

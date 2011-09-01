@@ -2,7 +2,7 @@ require 'rspec'
 require 'bcdatabase'
 
 $LOAD_PATH.unshift(File.expand_path('../lib', __FILE__))
-require 'bcdatabase/active_record/schema_qualified_tables'
+require 'schema_qualified_tables'
 
 module SqtCpk
   def test_cpk?

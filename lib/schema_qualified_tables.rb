@@ -1,0 +1,1 @@
+require 'bcdatabase/active_record/schema_qualified_tables'
