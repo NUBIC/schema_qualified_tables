@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   # the library is tested against CPK, but does not require it
   s.add_development_dependency 'composite_primary_keys'
   s.add_development_dependency 'ci_reporter', '~> 1.6.5'
-  s.add_development_dependency 'bcdatabase', '~> 1.1'
+  s.add_development_dependency 'bcdatabase', '~> 1.2'
 end
 

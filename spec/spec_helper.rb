@@ -35,17 +35,7 @@ module DatabaseHelper
   end
 
   def bcdb
-    @bcdb ||= Bcdatabase.load(:transforms => bcdb_transforms)
-  end
-
-  def bcdb_transforms
-    [
-      if RUBY_PLATFORM =~ /java/
-        lambda { |entry, name, group|
-          entry.merge('adapter' => entry.delete('jruby_adapter')) if entry['jruby_adapter']
-        }
-      end
-    ].compact
+    @bcdb ||= Bcdatabase.load
   end
 end
 
