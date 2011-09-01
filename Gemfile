@@ -15,9 +15,6 @@ if ENV['ACTIVERECORD_VERSION']
   gem 'activerecord', version
 end
 
-# Database adapters are here rather than the gemspec so that they can
-# be excluded when installing.
-
 group :postgresql do
   platforms :ruby_18, :ruby_19 do
     gem 'pg', '~> 0.11.0'
@@ -28,10 +25,12 @@ group :postgresql do
   end
 end
 
-group :oracle do
-  gem 'activerecord-oracle_enhanced-adapter'
+unless ENV['SQT_ORACLE']
+  group :oracle do
+    gem 'activerecord-oracle_enhanced-adapter'
 
-  platforms :ruby_18, :ruby_19 do
-    gem 'ruby-oci8'
+    platforms :ruby_18, :ruby_19 do
+      gem 'ruby-oci8'
+    end
   end
 end
