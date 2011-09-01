@@ -12,3 +12,24 @@ if ENV['ACTIVERECORD_VERSION']
 
   gem 'activerecord', version
 end
+
+# Database adapters are here rather than the gemspec so that they can
+# be excluded when installing.
+
+group :postgresql do
+  platforms :ruby_18, :ruby_19 do
+    gem 'pg', '~> 0.11.0'
+  end
+
+  platforms :jruby do
+    gem 'activerecord-jdbcpostgresql-adapter'
+  end
+end
+
+group :oracle do
+  gem 'activerecord-oracle_enhanced-adapter'
+
+  platforms :ruby_18, :ruby_19 do
+    gem 'ruby-oci8'
+  end
+end

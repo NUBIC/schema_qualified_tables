@@ -5,10 +5,12 @@ ActiveRecord.load_all! if ActiveRecord.respond_to?(:load_all!)  # Lazy loading o
 require 'composite_primary_keys' if SqtCpk.test_cpk?
 
 describe "SchemaQualifiedTables" do
-  before do
-    @conn = mock(ActiveRecord::ConnectionAdapters::AbstractAdapter)
-    @conn.stub!(:default_sequence_name).and_return("default_sequence_name")
-    ActiveRecord::Base.connection_handler.stub!(:retrieve_connection).and_return(@conn)
+  before(:all) do
+    establish_connection
+  end
+
+  after(:all) do
+    remove_connection
   end
 
   after do
@@ -203,12 +205,16 @@ describe "SchemaQualifiedTables" do
 
   # TODO: bad, bad, bad copying
   describe "sequences" do
+    def inferred(table_name='foo')
+      ActiveRecord::Base.connection.default_sequence_name(table_name)
+    end
+
     describe "with no schema name" do
       it "uses the inferred sequence name" do
         class Book < ActiveRecord::Base
         end
 
-        Book.sequence_name.should == 'default_sequence_name'
+        Book.sequence_name.should == inferred('books')
       end
 
       it "uses just the explicit sequencename" do
@@ -220,9 +226,7 @@ describe "SchemaQualifiedTables" do
       end
 
       it "gives nil if the adapter doesn't specify a default sequence name" do
-        conn = mock(ActiveRecord::ConnectionAdapters::AbstractAdapter)
-        conn.stub!(:default_sequence_name).and_return(nil)
-        ActiveRecord::Base.connection_handler.stub!(:retrieve_connection).and_return(conn)
+        pending 'Adapter does have a default' if inferred
 
         class Book < ActiveRecord::Base
         end
@@ -237,13 +241,11 @@ describe "SchemaQualifiedTables" do
           set_schema :reading_material
         end
 
-        Magazine.sequence_name.should == 'reading_material.default_sequence_name'
+        Magazine.sequence_name.should == "reading_material.#{inferred 'magazines'}"
       end
 
       it "gives nil if the adapter doesn't specify a default sequence name" do
-        conn = mock(ActiveRecord::ConnectionAdapters::AbstractAdapter)
-        conn.stub!(:default_sequence_name).and_return(nil)
-        ActiveRecord::Base.connection_handler.stub!(:retrieve_connection).and_return(conn)
+        pending 'Adapter does have a default' if inferred
 
         class Book < ActiveRecord::Base
           set_schema :reading_material
@@ -320,7 +322,7 @@ describe "SchemaQualifiedTables" do
       describe "with name overrides" do
         before do
           ActiveRecord::Base.schemas = {
-            :reading_material => 'reading_material_test'
+            :reading_material => 'rm_test'
           }
         end
 
@@ -333,7 +335,7 @@ describe "SchemaQualifiedTables" do
             set_schema :reading_material
           end
 
-          Pamphlet.sequence_name.should == 'reading_material_test.default_sequence_name'
+          Pamphlet.sequence_name.should == "rm_test.#{inferred 'pamphlets'}"
         end
 
         it "uses the explicit sequence name, if first" do
@@ -342,7 +344,7 @@ describe "SchemaQualifiedTables" do
             set_schema :reading_material
           end
 
-          Pamphlet.sequence_name.should == "reading_material_test.some_pamphlets"
+          Pamphlet.sequence_name.should == "rm_test.some_pamphlets"
         end
 
         it "uses the explicit sequence name, if second" do
@@ -351,7 +353,7 @@ describe "SchemaQualifiedTables" do
             set_sequence_name "some_pamphlets"
           end
 
-          Pamphlet.sequence_name.should == "reading_material_test.some_pamphlets"
+          Pamphlet.sequence_name.should == "rm_test.some_pamphlets"
         end
       end
     end

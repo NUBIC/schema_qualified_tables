@@ -98,6 +98,40 @@ Send any other questions or feedback to Rhett Sutphin
 
 [issues]: http://github.com/rsutphin/schema_qualified_tables/issues
 
+Development
+-----------
+
+This library uses bundler to provide an isolated gem environment for
+its tests. Use `bundle update` before attempting to run the tests.
+
+In order to test all the features of `schema_qualified_tables`,
+ActiveRecord must be given a connection to a database on an RDBMS that
+supports sequences. The test harness uses [Bcdatabase][] to acquire
+the credentials for the test database. By default, it looks for the
+Bcdatabase group `:local_postgresql` and the configuration
+`:schema_qualified_tables_test`. You can override these by setting
+environment variables when you run the tests, e.g.:
+
+    SQT_DB_GROUP=local_oracle
+    SQT_DB_ENTRY=sqt_tester
+
+The test harness supports using PostgreSQL or Oracle. Adding support
+for another database should be as easy as adding its adapter (or its
+adapter's dependencies, if it has an adapter built into AR) to the
+development dependencies in the gemspec and running `bundle
+update`. The test suite can only be run without failures on a database
+that supports sequences.
+
+### On JRuby
+
+If you want to run the tests on JRuby using a database whose JDBC
+drivers are not available as a gem (i.e., Oracle), ensure that the
+JDBC driver is on JRuby's classpath before running the tests. The
+easiest way to do that is by setting the CLASSPATH environment
+variable.
+
+[Bcdatabase]: http://rubydoc.info/gems/bcdatabase/frames
+
 Credits
 -------
 
