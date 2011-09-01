@@ -6,7 +6,13 @@ module Bcdatabase
       def self.included(clz)
         clz.instance_eval do
           extend ClassMethods
-          class_inheritable_accessor :schema
+          if self.respond_to?(:class_attribute)
+            class_attribute :schema
+          elsif self.respond_to?(:class_inheritable_accessor)
+            class_inheritable_accessor :schema
+          else
+            fail "schema_qualified_tables is apparently not compatible with this version of ActiveRecord. Please report this as a bug."
+          end
 
           class << self
             alias_method_chain :set_table_name, :schema

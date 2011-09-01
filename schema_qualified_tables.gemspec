@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/NUBIC/schema_qualified_tables}
   s.require_paths = ["lib"]
 
-  s.add_dependency 'activerecord', ['>= 2.3', '< 3.1']
+  s.add_dependency 'activerecord', '>= 2.3'
 
   s.add_development_dependency 'rake', '~> 0.9.0'
   s.add_development_dependency 'rspec', '~> 2.6'
