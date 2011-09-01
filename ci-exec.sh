@@ -46,6 +46,6 @@ if [ $? -ne 0 ]; then
 fi
 set -e
 
-bundle update
+bundle update --without oracle
 
 bundle exec rake ci --trace
