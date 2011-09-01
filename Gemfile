@@ -25,7 +25,7 @@ group :postgresql do
   end
 end
 
-unless ENV['SQT_ORACLE']
+if ENV['SQT_ORACLE']
   group :oracle do
     gem 'activerecord-oracle_enhanced-adapter'
 
