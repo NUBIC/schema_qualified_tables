@@ -1,6 +1,9 @@
 schema_qualified_tables history
 ===============================
 
+1.0.2
+-----
+
 1.0.1
 -----
 - ActiveRecord 3.1 support. (#1)
