@@ -114,10 +114,14 @@ environment variables when you run the tests, e.g.:
 
 The test harness supports using PostgreSQL or Oracle. Adding support
 for another database should be as easy as adding its adapter (or its
-adapter's dependencies, if it has an adapter built into AR) to the
-development dependencies in the gemspec and running `bundle
-update`. The test suite can only be run without failures on a database
-that supports sequences.
+adapter's dependencies, if it has an adapter built into AR) to a group
+the Gemfile and running `bundle update`. The test suite can only be
+run without failures on a database that supports sequences.
+
+(N.b.: since it's relatively difficult to install the supporting
+library for Oracle, it isn't included in the Gemfile by default. If
+you want to test against Oracle, set `SQT_ORACLE=true` in your
+environment before running `bundle update` and the tests.)
 
 ### On JRuby
 
