@@ -54,10 +54,18 @@ Then, if you need to override the actual schema name in some
 environments, configure `ActiveRecord::Base.schemas`:
 
     # in test.rb
+
+    # For Rails 2.3
     config.after_initialize do
-      ActiveRecord::Base.schemas = {
-        :hr => 'hr_test',
-      }
+      ActiveRecord::Base.schemas = { :hr => 'hr_test' }
+    end
+
+    # For Rails 3.x
+    MyApp::Application.configure do
+      ...
+      # _not_ within an after_initialize block
+      ActiveRecord::Base.schemas = { :hr => 'hr_test' }
+      ...
     end
 
 This way in the test environment, AR will map `Person` to
