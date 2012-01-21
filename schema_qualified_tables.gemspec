@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake', '~> 0.9.0'
   s.add_development_dependency 'rspec', '~> 2.6'
-  s.add_development_dependency 'rcov'
   # the library is tested against CPK, but does not require it
   s.add_development_dependency 'composite_primary_keys'
   s.add_development_dependency 'ci_reporter', '~> 1.6.5'
