@@ -18,6 +18,7 @@ module Bcdatabase
 
       module ClassMethods
         attr_accessor :schemas
+        attr_writer :schema
 
         def table_name
           unless abstract_class?
@@ -39,6 +40,7 @@ module Bcdatabase
           end
         end
 
+        # Support pre-rails 3.2 style setter
         def set_schema(schema)
           self.schema = schema
         end
