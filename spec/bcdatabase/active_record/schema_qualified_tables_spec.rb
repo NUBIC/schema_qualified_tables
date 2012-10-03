@@ -40,7 +40,7 @@ describe "SchemaQualifiedTables" do
 
       it "uses just the explicit tablename" do
         class Novel < ActiveRecord::Base
-          set_table_name "books"
+          self.table_name =  "books"
         end
 
         Novel.table_name.should == 'books'
@@ -58,7 +58,7 @@ describe "SchemaQualifiedTables" do
 
       it "uses the explicit table name, if first" do
         class Magazine < ActiveRecord::Base
-          set_table_name "some_magazines"
+          self.table_name = "some_magazines"
           set_schema :reading_material
         end
 
@@ -68,7 +68,7 @@ describe "SchemaQualifiedTables" do
       it "uses the explicit table name, if second" do
         class Magazine < ActiveRecord::Base
           set_schema :reading_material
-          set_table_name "some_magazines"
+          self.table_name = "some_magazines"
         end
 
         Magazine.table_name.should == "reading_material.some_magazines"
@@ -77,9 +77,9 @@ describe "SchemaQualifiedTables" do
       it "preserves the schema name if the table name is set several times" do
         class Magazine < ActiveRecord::Base
           set_schema :reading_material
-          set_table_name "some_magazines"
+          self.table_name = "some_magazines"
 
-          set_table_name "other_magazines"
+          self.table_name = "other_magazines"
         end
 
         Magazine.table_name.should == "reading_material.other_magazines"
@@ -88,7 +88,7 @@ describe "SchemaQualifiedTables" do
       it "uses the last schema if set several times" do
         class Magazine < ActiveRecord::Base
           set_schema :reading_material
-          set_table_name "some_magazines"
+          self.table_name = "some_magazines"
           set_schema :periodicals
         end
 
@@ -115,7 +115,7 @@ describe "SchemaQualifiedTables" do
 
         it "inherits the schema from its parent class" do
           class Magazine < ReadingMaterialBase
-            set_table_name "some_magazines"
+            self.table_name = "some_magazines"
           end
 
           Magazine.schema.should == :reading_material
@@ -123,11 +123,6 @@ describe "SchemaQualifiedTables" do
         end
 
         it "uses the inferred table name for a child" do
-          pending "bug in ActiveRecord::Base.reset_table_name"
-                  # Fails because the first call to reset_table_name
-                  # always returns just the inferred table name.  Usually
-                  # the first call is during set_table_name or set_schema.
-                  # In this spec, it is in the call to table_name, below.
           class Newspaper < ReadingMaterialBase; end
 
           Newspaper.schema.should == :reading_material
@@ -136,7 +131,7 @@ describe "SchemaQualifiedTables" do
 
         it "uses separate schemas for subclasses" do
           class Magazine < ReadingMaterialBase
-            set_table_name "some_magazines"
+            self.table_name = "some_magazines"
             set_schema :periodicals
           end
           class Newspaper < ReadingMaterialBase
@@ -169,7 +164,7 @@ describe "SchemaQualifiedTables" do
 
         it "uses the explicit table name, if first" do
           class Pamphlet < ActiveRecord::Base
-            set_table_name "some_pamphlets"
+            self.table_name = "some_pamphlets"
             set_schema :reading_material
           end
 
@@ -179,7 +174,7 @@ describe "SchemaQualifiedTables" do
         it "uses the explicit table name, if second" do
           class Pamphlet < ActiveRecord::Base
             set_schema :reading_material
-            set_table_name "some_pamphlets"
+            self.table_name = "some_pamphlets"
           end
 
           Pamphlet.table_name.should == "reading_material_test.some_pamphlets"
@@ -187,7 +182,7 @@ describe "SchemaQualifiedTables" do
 
         it "applies name overrides that come after the model is loaded" do
           class Newspaper < ActiveRecord::Base
-            set_table_name "newspaperos"
+            self.table_name = "newspaperos"
             set_schema :periodicals
           end
 
@@ -225,7 +220,7 @@ describe "SchemaQualifiedTables" do
 
       it "uses just the explicit sequencename" do
         class Novel < ActiveRecord::Base
-          set_sequence_name "books"
+          self.sequence_name = "books"
         end
 
         Novel.sequence_name.should == 'books'
@@ -267,7 +262,7 @@ describe "SchemaQualifiedTables" do
 
         it "doesn't fail when setting the schema" do
           class Newspaper < ActiveRecord::Base
-            set_primary_keys "address", "telephone"
+            self.primary_keys = "address", "telephone"
             set_schema :reading_material
           end
         end
@@ -275,7 +270,7 @@ describe "SchemaQualifiedTables" do
 
       it "uses the explicit sequence name, if first" do
         class Magazine < ActiveRecord::Base
-          set_sequence_name "some_magazines_seq"
+          self.sequence_name = "some_magazines_seq"
           set_schema :reading_material
         end
 
@@ -285,7 +280,7 @@ describe "SchemaQualifiedTables" do
       it "uses the explicit sequence name, if second" do
         class Magazine < ActiveRecord::Base
           set_schema :reading_material
-          set_sequence_name "some_magazines_seq"
+          self.sequence_name = "some_magazines_seq"
         end
 
         Magazine.sequence_name.should == "reading_material.some_magazines_seq"
@@ -294,9 +289,9 @@ describe "SchemaQualifiedTables" do
       it "preserves the schema name if the sequence name is set several times" do
         class Magazine < ActiveRecord::Base
           set_schema :reading_material
-          set_sequence_name "some_magazines_seq"
+          self.sequence_name = "some_magazines_seq"
 
-          set_sequence_name "other_magazines_seq"
+          self.sequence_name = "other_magazines_seq"
         end
 
         Magazine.sequence_name.should == "reading_material.other_magazines_seq"
@@ -305,7 +300,7 @@ describe "SchemaQualifiedTables" do
       it "uses the last schema if set several times" do
         class Magazine < ActiveRecord::Base
           set_schema :reading_material
-          set_sequence_name "some_magazines_seq"
+          self.sequence_name = "some_magazines_seq"
           set_schema :periodicals
         end
 
@@ -316,7 +311,7 @@ describe "SchemaQualifiedTables" do
         lambda {
           class Magazine < ActiveRecord::Base
             set_schema :periodicals
-            set_sequence_name 'mag_seq'
+            self.sequence_name = 'mag_seq'
           end
         }.should_not raise_error
 
@@ -344,7 +339,7 @@ describe "SchemaQualifiedTables" do
 
         it "uses the explicit sequence name, if first" do
           class Pamphlet < ActiveRecord::Base
-            set_sequence_name "some_pamphlets"
+            self.sequence_name = "some_pamphlets"
             set_schema :reading_material
           end
 
@@ -354,7 +349,7 @@ describe "SchemaQualifiedTables" do
         it "uses the explicit sequence name, if second" do
           class Pamphlet < ActiveRecord::Base
             set_schema :reading_material
-            set_sequence_name "some_pamphlets"
+            self.sequence_name = "some_pamphlets"
           end
 
           Pamphlet.sequence_name.should == "rm_test.some_pamphlets"
