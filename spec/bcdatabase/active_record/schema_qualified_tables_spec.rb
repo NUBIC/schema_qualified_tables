@@ -13,6 +13,14 @@ describe "SchemaQualifiedTables" do
     remove_connection
   end
 
+  before(:each, :without_connection => true) do
+    remove_connection
+  end
+
+  after(:each, :without_connection => true) do
+    establish_connection
+  end
+
   after do
     Object.class_eval do
       %w(ReadingMaterialBase Book Magazine Newspaper Pamphlet).each do |clazz|
@@ -87,9 +95,7 @@ describe "SchemaQualifiedTables" do
         Magazine.table_name.should == "periodicals.some_magazines"
       end
 
-      it "works if set_schema is called without a connection" do
-        ActiveRecord::Base.connection_handler.should_receive(:retrieve_connection).
-          and_raise(ActiveRecord::ConnectionNotEstablished)
+      it "works if set_schema is called without a connection", :without_connection do
         lambda {
           class Magazine < ActiveRecord::Base
             set_schema :periodicals
@@ -306,9 +312,7 @@ describe "SchemaQualifiedTables" do
         Magazine.sequence_name.should == "periodicals.some_magazines_seq"
       end
 
-      it "works if set_schema is called without a connection" do
-        ActiveRecord::Base.connection_handler.should_receive(:retrieve_connection).
-          and_raise(ActiveRecord::ConnectionNotEstablished)
+      it "works if set_schema is called without a connection", :without_connection do
         lambda {
           class Magazine < ActiveRecord::Base
             set_schema :periodicals

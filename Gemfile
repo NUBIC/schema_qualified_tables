@@ -7,7 +7,7 @@ if ENV['ACTIVERECORD_VERSION']
   version = case ENV['ACTIVERECORD_VERSION']
             when /2.3-old$/ then '= 2.3.8'
             when /2.3$/ then '~> 2.3.9'
-            when /3.0$/ then '~> 3.0.0'
+            when /3.0$/ then '~> 3.0.10'
             when /3.1$/ then '~> 3.1.0'
             when /3.2$/ then '~> 3.2.0'
             else raise "Unsupported ActiveRecord version #{ENV['ACTIVERECORD_VERSION']}"
