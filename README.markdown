@@ -50,6 +50,12 @@ re-write `Person` like so:
       set_table_name :t_personnel
     end
 
+    # For Rails 3.2+ this syntax is also supported
+    class Person < ActiveRecord::Base
+      self.schema = :hr
+      self.table_name = :t_personnel
+    end
+
 Then, if you need to override the actual schema name in some
 environments, configure `ActiveRecord::Base.schemas`:
 
