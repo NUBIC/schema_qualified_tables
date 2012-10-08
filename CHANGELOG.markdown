@@ -1,8 +1,12 @@
 schema_qualified_tables history
 ===============================
 
-1.0.2
+1.1.0
 -----
+
+- ActiveRecord 3.2 support. (#3)
+  Previous versions worked with AR 3.2 but this version eliminates the
+  deprecation warnings arising from the use of `set_table_name`, etc.
 
 1.0.1
 -----
