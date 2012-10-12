@@ -22,20 +22,20 @@ module Bcdatabase
 
         def table_name
           unless abstract_class?
-            if schema_name
-              "#{schema_name}.#{super}"
-            else
+            if schema_name_prepended?(schema_name, super)
               super
+            else
+              "#{schema_name}.#{super}"
             end
           end
         end
 
         def sequence_name
           unless abstract_class?
-            if schema_name && (super =~ /^#{schema_name}\./).nil?
-              "#{schema_name}.#{super}"
-            else
+            if schema_name_prepended?(schema_name, super)
               super
+            else
+              "#{schema_name}.#{super}"
             end
           end
         end
@@ -50,6 +50,10 @@ module Bcdatabase
         end
 
         protected
+
+        def schema_name_prepended?(name, super_klass)
+          !(name && (super_klass =~ /^#{name}\./).nil?)
+        end
 
         def schema_name
           ::ActiveRecord::Base.schemas[self.schema] || self.schema
