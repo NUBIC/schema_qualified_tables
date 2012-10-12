@@ -151,16 +151,16 @@ describe "SchemaQualifiedTables" do
           Newspaper.table_name.should == "deprecated.newspapers"
         end
 
-	it "prepends the schema name only once when inheriting a table name" do
-	  class Magazine < ReadingMaterialBase
+        it "prepends the schema name only once when inheriting a table name" do
+          class Magazine < ReadingMaterialBase
             sqt_table_name("some_magazines")
           end
 
-	  class AnotherMagazine < Magazine
-          end		
-	  
-	  AnotherMagazine.table_name.should == "reading_material.some_magazines"
-	end
+          class AnotherMagazine < Magazine
+          end
+
+          AnotherMagazine.table_name.should == "reading_material.some_magazines"
+        end
       end
 
       describe "with name overrides" do
