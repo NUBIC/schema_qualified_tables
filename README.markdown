@@ -13,6 +13,7 @@ For example
 
 Say you have an application using a legacy schema that has models like this:
 
+    # Rails 2.3, 3.0 and 3.1
     class Surgery < ActiveRecord::Base
       belongs_to :surgeon, :class_name => "Person", :foreign_key => "surgeon_id"
       set_table_name "t_surgeries"
@@ -20,6 +21,16 @@ Say you have an application using a legacy schema that has models like this:
 
     class Person < ActiveRecord::Base
       set_table_name "hr.t_personnel"
+    end
+
+    # Rails 3.2+
+    class Surgery < ActiveRecord::Base
+      belongs_to :surgeon, :class_name => "Person", :foreign_key => "surgeon_id"
+      self.table_name = "t_surgeries"
+    end
+
+    class Person < ActiveRecord::Base
+      self.table_name = "hr.t_personnel"
     end
 
 These models map to tables in two schemas: the default schema, which
@@ -45,16 +56,19 @@ logical schema name for your models which is resolved into the actual
 schema name based on runtime configuration.  In this case, you'd
 re-write `Person` like so:
 
+    # Rails 2.3, 3.0 and 3.1
     class Person < ActiveRecord::Base
       set_schema :hr
       set_table_name :t_personnel
     end
 
-    # For Rails 3.2+ this syntax is also supported
+    # Rails 3.2+
     class Person < ActiveRecord::Base
       self.schema = :hr
       self.table_name = :t_personnel
     end
+
+Please note: The Rails 3.2 deprecated syntax `set_table_name` and `set_sequence_name` is not supported with Rails 3.2 and later.
 
 Then, if you need to override the actual schema name in some
 environments, configure `ActiveRecord::Base.schemas`:

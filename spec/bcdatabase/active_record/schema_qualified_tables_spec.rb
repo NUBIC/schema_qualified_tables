@@ -24,7 +24,7 @@ describe "SchemaQualifiedTables" do
 
   after do
     Object.class_eval do
-      %w(ReadingMaterialBase Book Magazine Newspaper Pamphlet).each do |clazz|
+      %w(ReadingMaterialBase Book Magazine Newspaper Pamphlet AnotherMagazine).each do |clazz|
         remove_const clazz if const_defined? clazz
       end
     end
@@ -150,6 +150,17 @@ describe "SchemaQualifiedTables" do
           Magazine.table_name.should == "periodicals.some_magazines"
           Newspaper.table_name.should == "deprecated.newspapers"
         end
+
+	it "prepends the schema name only once when inheriting a table name" do
+	  class Magazine < ReadingMaterialBase
+            sqt_table_name("some_magazines")
+          end
+
+	  class AnotherMagazine < Magazine
+          end		
+	  
+	  AnotherMagazine.table_name.should == "reading_material.some_magazines"
+	end
       end
 
       describe "with name overrides" do
