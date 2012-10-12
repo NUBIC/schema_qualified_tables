@@ -68,8 +68,8 @@ re-write `Person` like so:
       self.table_name = :t_personnel
     end
 
-Please note: The deprecated-in-Rails-3.2 syntax `set_table_name` and
-`set_sequence_name` _does not work_ with schema qualified tables in Rails 3.2.
+(Please note: The deprecated-in-Rails-3.2 syntax `set_table_name` and
+`set_sequence_name` _does not work_ with schema qualified tables in Rails 3.2.)
 
 Then, if you need to override the actual schema name in some
 environments, configure `ActiveRecord::Base.schemas`:
