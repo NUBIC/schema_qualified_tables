@@ -4,6 +4,8 @@ schema_qualified_tables history
 1.1.1
 -----
 
+- Don't prepend the schema if it is already present in AR 3.2. (#8, #9)
+
 1.1.0
 -----
 
