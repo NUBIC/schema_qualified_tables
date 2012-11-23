@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-BUNDLER_VERSION=1.0.18
+BUNDLER_VERSION=1.2.2
 GEMSET="sqtables"
 
 if [ -n "${ACTIVERECORD_VERSION}" ]; then
