@@ -14,6 +14,12 @@ if ENV['ACTIVERECORD_VERSION']
             end
 
   gem 'activerecord', version
+
+  # Force CPK version for pre-AR 3.2 to work around https://github.com/rubygems/bundler-api/issues/17
+  # Once that issue has been fixed in the rubygems.org data, this should be removed.
+  unless ENV['ACTIVERECORD_VERSION'] =~ /3.2$/
+    gem 'composite_primary_keys', '< 5'
+  end
 end
 
 group :postgresql do
